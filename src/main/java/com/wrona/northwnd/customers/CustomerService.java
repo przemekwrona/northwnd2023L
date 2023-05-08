@@ -20,9 +20,17 @@ public class CustomerService {
             List<ClientResponse> clients = entities.stream()
                     .map(client -> {
                         ClientResponse clientResponse = new ClientResponse();
-                        clientResponse.setId(client.getId());
-                        clientResponse.setName(client.getName());
-                        clientResponse.setSurname(client.getSurname());
+                        clientResponse.setCustomerId(client.getCustomerId());
+                        clientResponse.setCompanyName(client.getCompanyName());
+                        clientResponse.setContactName(client.getContactName());
+                        clientResponse.setContactTitle(client.getContactTitle());
+                        clientResponse.setCity(client.getCity());
+                        clientResponse.setRegion(client.getRegion());
+                        clientResponse.setPostalCode(client.getPostalCode());
+                        clientResponse.setCountry(client.getCountry());
+                        clientResponse.setAddress(client.getAddress());
+                        clientResponse.setPhone(client.getPhone());
+                        clientResponse.setFax(client.getFax());
                         return clientResponse;
                     })
                     .collect(Collectors.toList());
