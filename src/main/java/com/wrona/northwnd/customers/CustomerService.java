@@ -11,12 +11,16 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CustomerService {
 
-    private final CustomerRepository customerRepository;
+    private final CustomerEntityRepository customerEntityRepository;
+    private final CustomersRepository customersRepository;
 
-    public Clients findAllCustomerByName(String name) {
+    public Clients findAllCustomerByCountry(String country, int page) {
 
         try {
-            List<CustomerEntity> entities = customerRepository.findAllCustomerByName(name);
+            List<CustomerEntity> entities = customerEntityRepository.findAllCustomerByCountry(country, page);
+            List<Customers> customers = customersRepository.findAllByCountryStartingWith(country);
+            List<Customers> customersWithoutOrders = customersRepository.findAllWithoutOrders();
+
             List<ClientResponse> clients = entities.stream()
                     .map(client -> {
                         ClientResponse clientResponse = new ClientResponse();
@@ -43,6 +47,13 @@ public class CustomerService {
         } catch (SQLException ignore) {
         }
         return null;
+    }
+
+    public void createClient(ClientRequest request) {
+        try {
+            customerEntityRepository.createClient(request);
+        } catch (SQLException ignore) {
+        }
     }
 
 }
